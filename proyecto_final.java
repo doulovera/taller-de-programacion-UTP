@@ -8,13 +8,14 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author https://doulovera.com
+ * @author grupo 03
  */
 public class Proyecto_final {
 
     public static void main(String[] args) {
         // Declaración de variables
         int aforo, mayores = 0, menores = 0, cantidadMiembros = 0, cantidadPro = 0;
+        char masInfoChar = 'c';
 
         // Solicitar el aforo del local al usuario
         aforo = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el aforo del local"));
@@ -27,13 +28,15 @@ public class Proyecto_final {
             // Solicitar información de una persona
             String nombre, apellido, plan;
             int edad;
+            
+            String idEnTxt = "(" + (i+1) + ") ";
 
-            nombre = JOptionPane.showInputDialog("Ingrese el Nombre del usuario");
-            apellido = JOptionPane.showInputDialog("Ingrese el Apellido del usuario");
+            nombre = JOptionPane.showInputDialog(idEnTxt + "Ingrese el Nombre del usuario");
+            apellido = JOptionPane.showInputDialog(idEnTxt + "Ingrese el Apellido del usuario");
 
-            edad = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la Edad del cliente"));
+            edad = Integer.parseInt(JOptionPane.showInputDialog(idEnTxt + "Ingrese la Edad del cliente"));
 
-            plan = JOptionPane.showInputDialog("Ingrese el Plan escogido (\"miembro\", \"pro\")");
+            plan = JOptionPane.showInputDialog(idEnTxt + "Ingrese el Plan escogido (\"miembro\", \"pro\")");
 
             // Verificar que el plan sea "miembro" o "pro"
             if (!plan.equals("miembro") && !plan.equals("pro")) {
@@ -77,11 +80,87 @@ public class Proyecto_final {
             System.out.println(personas[k][4]);
         }
 
-        // Imprimir las estadísticas de las personas
-        System.out.println("Cantidad de personas mayores de edad: " + mayores);
-        System.out.println("Cantidad de personas menores de edad: " + menores);
-        System.out.println("Cantidad de personas con plan \"miembro\": " + cantidadMiembros);
-        System.out.println("Cantidad de personas con plan \"pro\": " + cantidadPro);
+        boolean hayError;
+        do {
+            String masInfo = JOptionPane.showInputDialog("Para ver estadísticas, use 'e' \nPara buscar un usuario, use 'b' \nPara no hacer nada, use 'c'");
+                if (
+                    masInfo.length() != 1 || 
+                    (!masInfo.equals("b") && !masInfo.equals("e") && !masInfo.equals("c"))
+                ) {
+                hayError = true;
+            } else {
+                hayError = false;
+                masInfoChar = masInfo.charAt(0);
+                
+                if (masInfoChar == 'e') {
+                    System.out.println();
+                    System.out.println("Cantidad de personas mayores de edad: " + mayores);
+                    System.out.println("Cantidad de personas menores de edad: " + menores);
+                    System.out.println("Cantidad de personas con plan \"miembro\": " + cantidadMiembros);
+                    System.out.println("Cantidad de personas con plan \"pro\": " + cantidadPro);   
+                }
+
+                if (masInfoChar == 'b') {
+                    String opcionBusqueda = JOptionPane.showInputDialog("Ingrese el criterio de búsqueda:\n1. ID\n2. Nombre");
+
+                    switch (opcionBusqueda) {
+                        case "1":
+                            {
+                                String idBusqueda = JOptionPane.showInputDialog("Ingrese el ID a buscar:");
+                                boolean encontrado = false;
+                                for (int k = 0; k < aforo; k++) {
+                                    if (personas[k][0].equals(idBusqueda)) {
+                                        System.out.println();
+                                        System.out.println("Usuario encontrado:");
+                                        System.out.println("ID: " + personas[k][0]);
+                                        System.out.println("Nombre: " + personas[k][1]);
+                                        System.out.println("Apellido: " + personas[k][2]);
+                                        System.out.println("Edad: " + personas[k][3]);
+                                        System.out.println("Plan: " + personas[k][4]);
+                                        encontrado = true;
+                                        break;
+                                    }
+                                }   if (!encontrado) {
+                                    System.out.println();
+                                    System.out.println("No se encontró ningún usuario con el ID proporcionado.");
+                                }   break;
+                            }
+                        case "2":
+                            {
+                                String nombreBusqueda = JOptionPane.showInputDialog("Ingrese el nombre a buscar:");
+                                boolean encontrado = false;
+                                for (int k = 0; k < aforo; k++) {
+                                    if (personas[k][1].equals(nombreBusqueda)) {
+                                        System.out.println();
+                                        System.out.println("Usuario encontrado:");
+                                        System.out.println("ID: " + personas[k][0]);
+                                        System.out.println("Nombre: " + personas[k][1]);
+                                        System.out.println("Apellido: " + personas[k][2]);
+                                        System.out.println("Edad: " + personas[k][3]);
+                                        System.out.println("Plan: " + personas[k][4]);
+                                        encontrado = true;
+                                    }
+                                }   if (!encontrado) {
+                                    System.out.println();
+                                    System.out.println("No se encontró ningún usuario con el nombre proporcionado.");
+                                }   break;
+                            }
+                        default:
+                            System.out.println();
+                            System.out.println("Opción de búsqueda inválida.");
+                            break;
+                    }
+                }
+            }
+        } while (masInfoChar != 'c' || hayError);
+        
+        System.out.println();
+        System.out.println("¡Gracias por usar nuestro software!");
+        System.out.println("""
+                           Lovera Freitas, Douglas Alexander\t | U21206109
+                           Ishuiza Fernandez, Angelo Amador\t | U21204754 
+                           Farfan Gonzales, Pelaggio Eduardo\t | U21219159
+                           Neyra Cruz, Rodrigo Jesús\t | U21226678
+                           """);
     }
 }
-
