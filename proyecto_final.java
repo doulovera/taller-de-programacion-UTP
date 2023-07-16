@@ -8,7 +8,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author grupo 03
+ * @author https://doulovera.com
  */
 public class Proyecto_final {
 
@@ -29,7 +29,7 @@ public class Proyecto_final {
             String nombre, apellido, plan;
             int edad;
             
-            String idEnTxt = "(" + (i+1) + ") ";
+            String idEnTxt = "(" + (i+1) + "/" + aforo + ") ";
 
             nombre = JOptionPane.showInputDialog(idEnTxt + "Ingrese el Nombre del usuario");
             apellido = JOptionPane.showInputDialog(idEnTxt + "Ingrese el Apellido del usuario");
@@ -83,15 +83,18 @@ public class Proyecto_final {
         boolean hayError;
         do {
             String masInfo = JOptionPane.showInputDialog("Para ver estadísticas, use 'e' \nPara buscar un usuario, use 'b' \nPara no hacer nada, use 'c'");
-                if (
-                    masInfo.length() != 1 || 
-                    (!masInfo.equals("b") && !masInfo.equals("e") && !masInfo.equals("c"))
-                ) {
+            
+            // Verificar si la opción ingresada tiene errores
+            if (
+                masInfo.length() != 1 || 
+                (!masInfo.equals("b") && !masInfo.equals("e") && !masInfo.equals("c"))
+            ) {
                 hayError = true;
             } else {
                 hayError = false;
                 masInfoChar = masInfo.charAt(0);
                 
+                // Realizar acciones en base a la opción seleccionada
                 if (masInfoChar == 'e') {
                     System.out.println();
                     System.out.println("Cantidad de personas mayores de edad: " + mayores);
@@ -120,10 +123,12 @@ public class Proyecto_final {
                                         encontrado = true;
                                         break;
                                     }
-                                }   if (!encontrado) {
+                                }   
+                                if (!encontrado) {
                                     System.out.println();
                                     System.out.println("No se encontró ningún usuario con el ID proporcionado.");
-                                }   break;
+                                }   
+                                break;
                             }
                         case "2":
                             {
@@ -140,10 +145,12 @@ public class Proyecto_final {
                                         System.out.println("Plan: " + personas[k][4]);
                                         encontrado = true;
                                     }
-                                }   if (!encontrado) {
+                                }   
+                                if (!encontrado) {
                                     System.out.println();
                                     System.out.println("No se encontró ningún usuario con el nombre proporcionado.");
-                                }   break;
+                                }   
+                                break;
                             }
                         default:
                             System.out.println();
